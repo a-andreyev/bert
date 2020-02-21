@@ -1,5 +1,19 @@
 # BERT
 
+## API Usage for feature extraction
+Example
+```sh
+from bert.extract_features import BertFeatureExtractor
+
+features_extractor = BertFeatureExtractor(
+    config_file = 'resources/bert/config.json',
+    vocab_file = 'resources/bert/vocab.txt',
+    checkpoint_file = 'resources/pretrained/model.ckpt-55000'
+)
+
+features_extractor.embed_sentences(['руководство по эксплуатации', 'инструкция к использованию'])
+```
+
 **\*\*\*\*\* New May 31st, 2019: Whole Word Masking Models \*\*\*\*\***
 
 This is a release of several new models which were the result of an improvement

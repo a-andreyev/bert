@@ -154,6 +154,8 @@ class BertModel(object):
         is invalid.
     """
     config = copy.deepcopy(config)
+    print('='*100)
+    print(config)
     if not is_training:
       config.hidden_dropout_prob = 0.0
       config.attention_probs_dropout_prob = 0.0

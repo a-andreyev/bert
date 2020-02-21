@@ -122,9 +122,11 @@ def load_vocab(vocab_file):
   """Loads a vocabulary file into a dictionary."""
   vocab = collections.OrderedDict()
   index = 0
+  #print(f'loading vocab from {vocab_file}')
   with tf.gfile.GFile(vocab_file, "r") as reader:
     while True:
       token = convert_to_unicode(reader.readline())
+      #print(token)
       if not token:
         break
       token = token.strip()
@@ -136,8 +138,11 @@ def load_vocab(vocab_file):
 def convert_by_vocab(vocab, items):
   """Converts a sequence of [tokens|ids] using the vocab."""
   output = []
+  #print(vocab)
   for item in items:
-    output.append(vocab[item])
+    item_id = vocab.get(item, 0)
+    #print(f'{item} : {item_id}')
+    output.append(item_id)
   return output
 
 
@@ -322,9 +327,9 @@ class WordpieceTokenizer(object):
     Returns:
       A list of wordpiece tokens.
     """
-
+    #print(self.vocab)
     text = convert_to_unicode(text)
-
+    #print(text)
     output_tokens = []
     for token in whitespace_tokenize(text):
       chars = list(token)
@@ -340,8 +345,10 @@ class WordpieceTokenizer(object):
         cur_substr = None
         while start < end:
           substr = "".join(chars[start:end])
-          if start > 0:
-            substr = "##" + substr
+          if start == 0:
+            #pass
+            substr = "_" + substr
+          #print(substr)
           if substr in self.vocab:
             cur_substr = substr
             break
@@ -351,6 +358,8 @@ class WordpieceTokenizer(object):
           break
         sub_tokens.append(cur_substr)
         start = end
+
+      #print(sub_tokens)
 
       if is_bad:
         output_tokens.append(self.unk_token)
