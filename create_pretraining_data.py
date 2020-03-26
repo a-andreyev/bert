@@ -200,6 +200,7 @@ def create_training_instances(input_files, tokenizer, max_seq_length,
         if not line:
           all_documents.append([])
         tokens = tokenizer.tokenize(line)
+        #print(tokens)
         if tokens:
           all_documents[-1].append(tokens)
 
@@ -208,6 +209,7 @@ def create_training_instances(input_files, tokenizer, max_seq_length,
   rng.shuffle(all_documents)
 
   vocab_words = list(tokenizer.vocab.keys())
+  #print(f'vocab words: {tokenizer.vocab.keys()}')
   instances = []
   for _ in range(dupe_factor):
     for document_index in range(len(all_documents)):
@@ -342,7 +344,7 @@ MaskedLmInstance = collections.namedtuple("MaskedLmInstance",
 def create_masked_lm_predictions(tokens, masked_lm_prob,
                                  max_predictions_per_seq, vocab_words, rng):
   """Creates the predictions for the masked LM objective."""
-
+  #print(f'words: {vocab_words}')
   cand_indexes = []
   for (i, token) in enumerate(tokens):
     if token == "[CLS]" or token == "[SEP]":

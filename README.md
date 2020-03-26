@@ -1040,6 +1040,19 @@ purchased with free credit for signing up with GCP), and this capability may not
 longer be available in the future. Click on the BERT Colab that was just linked
 for more information.
 
+## API Usage for feature extraction
+
+Example
+```sh
+from bert.extract_features import BertFeatureExtractor
+features_extractor = BertFeatureExtractor(
+    config_file = 'resources/bert/config.json',
+    vocab_file = 'resources/bert/vocab.txt',
+    checkpoint_file = 'resources/pretrained/model.ckpt-55000'
+)
+features_extractor.embed_sentences(['instruction manual', 'instruction for use'])
+```
+
 ## FAQ
 
 #### Is this code compatible with Cloud TPUs? What about GPUs?
